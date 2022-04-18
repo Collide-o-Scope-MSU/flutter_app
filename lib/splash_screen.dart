@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:wrecks/screens/home/home.dart';
 import 'package:wrecks/services/flutter_realtime_demo.dart';
 
 class Splash extends StatefulWidget {
@@ -19,8 +20,8 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
   }
 
   void navigationPage() {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => FirebaseRealtimeDemoScreen()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => FirebaseGetData()));
   }
 
   @override
@@ -44,7 +45,7 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 1, 91, 82),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -54,8 +55,8 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
             children: <Widget>[
               Padding(
                   padding: EdgeInsets.only(bottom: 30.0),
-                  child: new Image.asset(
-                    'assets/powered_by.png',
+                  child: new Image.network(
+                    'https://design.ece.msstate.edu/2022/team_dahal/static/images/logo.jpg',
                     height: 25.0,
                     fit: BoxFit.scaleDown,
                   ))
@@ -64,11 +65,27 @@ class VideoState extends State<Splash> with SingleTickerProviderStateMixin {
           new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // new Image.asset(
-              //   'assets/devs.jpg',
-              //   width: animation.value * 250,
-              //   height: animation.value * 250,
-              // ),
+              Text(
+                "Wireless Roadside Emergency Collision Kinetic Sensor",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontFamily: 'RobotoMono'),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                "WRECKS",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontFamily: 'RobotoMono'),
+                textAlign: TextAlign.center,
+              ),
+              new Image.network(
+                'https://design.ece.msstate.edu/2022/team_dahal/static/images/logo.jpg',
+                width: animation.value * 550,
+                height: animation.value * 550,
+              ),
             ],
           ),
         ],

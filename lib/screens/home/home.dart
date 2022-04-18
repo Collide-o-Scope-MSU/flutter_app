@@ -65,10 +65,14 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
   Widget build(BuildContext context) {
     count = 0;
     return Scaffold(
+        backgroundColor: Color.fromARGB(255, 1, 91, 82),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Color.fromARGB(255, 3, 157, 142),
           title: Text("WRECKS"),
         ),
         body: StreamBuilder(
+          //Color.fromARGB(255, 1, 91, 82),
           stream: starCountRef.onValue,
           builder: (ctx, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -126,6 +130,7 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
                   height: 100,
                   width: 100,
                   child: Card(
+                    color: Color.fromARGB(255, 75, 157, 149),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     child: ListView(
