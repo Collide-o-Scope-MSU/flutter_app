@@ -43,6 +43,7 @@ dependencies:
   flutter_local_notifications: ^9.4.0
   awesome_notifications: ^0.6.21
   url_launcher: ^6.0.20
+  firebase_messaging: ^11.2.13
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,8 @@ flutter:
   assets:
      - assets/images/Cellular.jpg
      - assets/images/LoRa.jpg
+     - assets/images/car_crash.png
+     
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

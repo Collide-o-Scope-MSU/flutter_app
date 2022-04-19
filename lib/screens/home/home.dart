@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:wrecks/constants/constants.dart';
 import 'package:wrecks/models/userModel.dart';
@@ -33,6 +34,7 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         showDialog(
@@ -43,10 +45,14 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
                       'App needs to send notification during collision detection!'),
                   actions: [
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         child: Text(
                           'Don\'t allow',
-                          style: TextStyle(color: Colors.grey, fontSize: 18),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 18),
                         )),
                     TextButton(
                         onPressed: () => AwesomeNotifications()
@@ -54,7 +60,7 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
                             .then((value) => Navigator.pop(context)),
                         child: Text(
                           'Allow',
-                          style: TextStyle(color: Colors.grey, fontSize: 18),
+                          style: TextStyle(color: Colors.teal, fontSize: 18),
                         ))
                   ],
                 ));
@@ -98,6 +104,10 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
                   //if (growableList?.indexOf(user) == -1) {
                   growableList?.add(user);
                   count++;
+                  if (user.status != null && user.status == "Crash Detected") {
+                    createCrashDetectedNotification();
+                    print("notification called");
+                  }
                   //}
                 }
                 if (map["LoRA$i"] != null) {
@@ -109,6 +119,10 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
                   growableList?.add(user);
                   count++;
                   //}
+                  if (user.status != null && user.status == "Crash Detected") {
+                    createCrashDetectedNotification();
+                    print("notification called");
+                  }
                 }
               }
 
@@ -209,5 +223,22 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
     } else {
       throw 'Could not open the map.';
     }
+  }
+
+  Future<void> createCrashDetectedNotification() async {
+    await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+      id: 1,
+      channelKey: 'basic_channel',
+      title: 'Crash detected!',
+      body: 'There has been a crash',
+      bigPicture: 'resource://drawable/car_crash',
+      notificationLayout: NotificationLayout.BigPicture,
+      displayOnBackground: true,
+    ));
+  }
+
+  int createUniqueId() {
+    return DateTime.now().millisecondsSinceEpoch.remainder(3);
   }
 }
