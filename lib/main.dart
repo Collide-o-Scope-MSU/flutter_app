@@ -8,7 +8,18 @@ import 'package:wrecks/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp(
+        options: FirebaseOptions(
+            apiKey: "AIzaSyB4QJFS782zKXLTcx3uowP54PeywwJF3Xc",
+            appId: "1:640557904214:web:1a05e736578dde9c16e6f7",
+            databaseURL: "https://wrecks-24e46-default-rtdb.firebaseio.com",
+            messagingSenderId: "640557904214",
+            projectId: "wrecks-24e46"));
+  } catch (e) {
+    print(e);
+  }
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   AwesomeNotifications().initialize('resource://drawable/car_crash', [
     NotificationChannel(

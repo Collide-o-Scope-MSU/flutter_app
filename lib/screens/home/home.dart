@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:convert';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,6 +33,15 @@ class _FirebaseGetDataState extends State<FirebaseGetData> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      print("message recieved");
+      print(event.notification!.body);
+      createCrashDetectedNotification;
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print('Message clicked!');
+    });
 
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
